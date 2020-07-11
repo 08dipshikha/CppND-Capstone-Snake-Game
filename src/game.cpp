@@ -2,12 +2,27 @@
 #include <iostream>
 #include "SDL.h"
 
-Game::Game(std::size_t grid_width, std::size_t grid_height)
+Game::Game(std::size_t grid_width, std::size_t grid_height, const char* userName)
     : engine(dev()),
-      random_w(0, static_cast<int>(grid_width - 1)),
-      random_h(0, static_cast<int>(grid_height - 1))
+      grid_width(grid_width),
+      grid_height(grid_height),
+      random_w(1, static_cast<int>(grid_width - 2)),
+      random_h(1, static_cast<int>(grid_height - 2))
+      
 {
-      snake = std::make_shared<Snake>(grid_width,grid_height);
+    playerName = new char[strlen(userName)+1];
+    strcpy(playerName, userName);
+}
+
+Game::~Game()
+{
+  delete []playerName;
+}
+
+void Game::SetSpeed(float &speed)
+{
+  speed_ = speed;
+  snake = std::make_shared<Snake>(grid_width,grid_height,speed_);
   PlaceFood();
 }
 
@@ -69,6 +84,7 @@ void Game::PlaceFood() {
     }
     
   }
+  
 }
 
 void Game::Update() {
@@ -85,13 +101,10 @@ void Game::Update() {
     PlaceFood();
     // Grow snake and increase speed.
     snake->GrowBody();
-    if(score%5 == 0)
-    {
-      //increase speed as score increases after 5 steps
-      snake->speed += 0.05;
-    }
+    snake->speed = speed_;
   }
 }
 
 int Game::GetScore() const { return score; }
 int Game::GetSize() const { return snake->size; }
+std::string Game::GetPlayerName() const { return playerName; }

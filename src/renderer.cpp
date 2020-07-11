@@ -53,6 +53,31 @@ int Renderer::Render(std::shared_ptr<Snake> &snake, SDL_Point const &food) {
   block.y = food.y * block.h;
   SDL_RenderFillRect(sdl_renderer, &block);
   
+  //color the boundaries
+  SDL_Rect boundary;
+  boundary.w = screen_width / grid_width;
+  boundary.h = screen_height / grid_height;
+
+  for (int i = 0; i < grid_width; i++)
+  {
+    for(int j = 0; j < grid_height; j++)
+    {
+      if (i == 0 || i == (grid_width - 1))
+      {
+        SDL_SetRenderDrawColor(sdl_renderer, 0x60, 0x23, 0x43, 0x01);
+        boundary.x = i * boundary.w;
+        boundary.y = j * boundary.h;
+        SDL_RenderFillRect(sdl_renderer, &boundary);
+      }
+      if (j == 0 || j == (grid_height - 1))
+      {
+        SDL_SetRenderDrawColor(sdl_renderer, 0x60, 0x23, 0x43, 0x01);
+        boundary.x = i * boundary.w;
+        boundary.y = j * boundary.h;
+        SDL_RenderFillRect(sdl_renderer, &boundary);
+      }
+    }
+  }
 
   // Render snake's body
   SDL_SetRenderDrawColor(sdl_renderer, 0xFF, 0xFF, 0xFF, 0xFF);
@@ -79,7 +104,7 @@ int Renderer::Render(std::shared_ptr<Snake> &snake, SDL_Point const &food) {
  {
     SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR,
                          "GAME OVER",
-                         "Please press OK and close the session",
+                         "Press OK",
                          sdl_window);
 
     SDL_DestroyWindow(sdl_window);

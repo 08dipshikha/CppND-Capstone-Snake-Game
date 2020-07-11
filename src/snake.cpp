@@ -38,15 +38,11 @@ void Snake::UpdateHead() {
       break;
   }
 
-  // Wrap the Snake around to the beginning if going off of the screen.
-  // head_x = fmod(head_x + grid_width, grid_width);
-  // head_y = fmod(head_y + grid_height, grid_height);
-  if( (head_x  + grid_width <= grid_width) || (grid_width - head_x  < 1) || (head_y  + grid_height <= grid_height) ||
-   (grid_height - head_y < 1) ) //(head_x + grid_width <= grid_width) ||
+  // Make sure snake does not touch the boundaries else exit game
+  if ((head_x < 1 && head_y > 1) || (head_x > grid_width - 1 && head_y <= grid_width - 1) || (head_x < grid_width - 1 && head_y < 1) || (head_x < grid_width - 1 && head_y > grid_height - 1))
   {
-     std::cout << "Touching sides " << std::endl;
-     alive = false;
-  }  
+    alive = false;
+  }
   
 }
 
