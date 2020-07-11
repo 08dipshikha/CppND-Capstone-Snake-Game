@@ -23,7 +23,16 @@ Upon lauching the game the user is then asked for the starting speed of the `sna
 ![startingSpeed](user_input.png)
 
 The game board launches after the user provides a valid speed and the user is able to play the game by moving the snake around with the arrow keys.
+
 ![gameBoartd](gameBoard.gif)
+
+## Added features
+
+The dipslay has additional boundaries around the window.
+Previously the snake could wrap around the window from one side to the other which has been restricted now. The game is terminated incase the snake touches any of the boundaries.
+The termination of the game was improper which is now fixed by adding an SDL dialogue box which prompts once the game is over and cleanly shuts down the game by returning to the main function. For this purpose the return type of the `Render` function is changed from `void` to `int`.
+
+The other additional changes have been mentioned in the Rubric list below.
 
 ## Dependencies for Running Locally
 
@@ -46,7 +55,8 @@ The game board launches after the user provides a valid speed and the user is ab
 1. Clone this repo.
 2. Make a build directory in the top level directory: `mkdir build && cd build`
 3. Compile: `cmake .. && make`
-4. Run it: `./SnakeGame`.
+4. Run the game using: `./SnakeGame`.
+5. Input the player name and speed of snake for the current game.
 
 # Rubric Items Matched
 
