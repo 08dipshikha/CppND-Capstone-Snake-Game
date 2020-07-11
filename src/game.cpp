@@ -3,10 +3,11 @@
 #include "SDL.h"
 
 Game::Game(std::size_t grid_width, std::size_t grid_height)
-    : snake(grid_width, grid_height),
-      engine(dev()),
-      random_w(0, static_cast<int>(grid_width)),
-      random_h(0, static_cast<int>(grid_height)) {
+    : engine(dev()),
+      random_w(0, static_cast<int>(grid_width - 1)),
+      random_h(0, static_cast<int>(grid_height - 1))
+{
+      snake = std::make_shared<Snake>(grid_width,grid_height);
   PlaceFood();
 }
 
@@ -23,9 +24,13 @@ void Game::Run(Controller const &controller, Renderer &renderer,
     frame_start = SDL_GetTicks();
 
     // Input, Update, Render - the main game loop.
-    controller.HandleInput(running, snake);
+    controller.HandleInput(std::move(running), snake);
     Update();
-    renderer.Render(snake, food);
+    int ret = renderer.Render(snake, food);
+    if(ret == -1)
+    {
+      return;
+    }
 
     frame_end = SDL_GetTicks();
 
@@ -57,31 +62,36 @@ void Game::PlaceFood() {
     y = random_h(engine);
     // Check that the location is not occupied by a snake item before placing
     // food.
-    if (!snake.SnakeCell(x, y)) {
+    if (!snake->SnakeCell(x, y)) {
       food.x = x;
       food.y = y;
       return;
     }
+    
   }
 }
 
 void Game::Update() {
-  if (!snake.alive) return;
+  if (!snake->alive) return;
 
-  snake.Update();
+  snake->Update();
 
-  int new_x = static_cast<int>(snake.head_x);
-  int new_y = static_cast<int>(snake.head_y);
+  int new_x = static_cast<int>(snake->head_x);
+  int new_y = static_cast<int>(snake->head_y);
 
   // Check if there's food over here
   if (food.x == new_x && food.y == new_y) {
     score++;
     PlaceFood();
     // Grow snake and increase speed.
-    snake.GrowBody();
-    snake.speed += 0.02;
+    snake->GrowBody();
+    if(score%5 == 0)
+    {
+      //increase speed as score increases after 5 steps
+      snake->speed += 0.05;
+    }
   }
 }
 
 int Game::GetScore() const { return score; }
-int Game::GetSize() const { return snake.size; }
+int Game::GetSize() const { return snake->size; }
