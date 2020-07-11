@@ -91,7 +91,7 @@ The player name is also taken as an input in the member variable `userName`.
 
 ### `The project makes use of references in function declarations.`
 
-> The project has a function to set the speed of the snake. (game.cpp line 22) This function also makes sure the game begins once the speed of the snake is set and the following initializing of snake constructor is made. This hence sets the member varaible `speed_`.
+> The project has a function to set the speed of the snake which passes the snake speed by referencenin the function `SetSpeed(float &speed)`(game.cpp line 22). This function also makes sure the game begins once the speed of the snake is set and the following initializing of snake constructor is made. This hence sets the member varaible `speed_`.
 
 
 ### 6
@@ -104,7 +104,7 @@ The player name is also taken as an input in the member variable `userName`.
 
 ### `The project uses smart pointers instead of raw pointers.`
 
-> The snake object is passed around the classes `renderer.cpp` and `controller.cpp` using the shared pointers. (game.h line 21)
+> The snake object is passed around the classes `renderer.cpp` and `controller.cpp` using the shared pointers `std::shared_ptr<Snake> snake;` (game.h line 21).
 
 ### 8
 
