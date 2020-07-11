@@ -83,7 +83,7 @@ The user has the option to select the starting speed of the snake. A Game class 
 
 The player name is also taken as an input in the member variable `userName`.
 
-> The function loops through the `grid_width` and `grid_height` to restrict and color the boundaries (renderer.cpp line 57).
+> The function loops through the `grid_width` and `grid_height` to restrict and color the boundaries (renderer.cpp line 61).
 
 ### 5
 
@@ -96,17 +96,17 @@ The player name is also taken as an input in the member variable `userName`.
 
 ### `The project uses move semantics to move data, instead of copying it, where possible.`
 
-> The member function `HandleInput` takes the bool `running` using move semnatics being passed at (game.cpp line 28).
+> The member function `HandleInput` takes the bool `running` using move semantics being passed at (game.cpp line 42).
 
 ### 7
 
 ### `The project uses smart pointers instead of raw pointers.`
 
-> The snake object is passed around the classes `renderer.cpp` and `controller.cpp` using the shared pointers `std::shared_ptr<Snake> snake;` (game.h line 21).
+> The snake object is passed around the classes `renderer.cpp` and `controller.cpp` using the shared pointers `std::shared_ptr<Snake> snake;` (game.h line 24).
 
 ### 8
 
 ### `The project uses destructors appropriately.`
 
-> The `main.cpp` takes the player name as an input into the varible `userName`. This is passed in the Game class constructor which dynamically allocates memory and is deleted in the destructor (game.cpp 19).
+> The `main.cpp` takes the player name as an input into the varible `userName`. This is passed in the Game class constructor which dynamically allocates memory (game.cpp line 13) and is deleted in the destructor (game.cpp 19).
 
