@@ -71,8 +71,6 @@ The Game class has member variables `grid_width` and `grid_height` initialized u
 
 > One member function in an inherited class overrides a virtual base class member function. The BaseController abstract class is inherited by the Controller class and hence multiple controllers can be used.
 
-> All class member functions document their effects, either through function names, comments, or formal documentation. Member functions do not change program state in undocumented ways.
-
 The class controller from `controller.h` inherits from abstract class `BaseController.h`.
 
 ### 4
